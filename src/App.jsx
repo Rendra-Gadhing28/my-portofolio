@@ -7,6 +7,8 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import CustomCursor from "./components/CustomCursor";
 import ScrollProgress from "./components/ScrollProgress";
+import ClickSpark from "./components/ui/ClickSpark";
+import Particles from "./components/ui/particles";
 
 export default function App() {
   useLenis();
@@ -14,6 +16,14 @@ export default function App() {
   return (
     <div className="relative min-h-screen bg-bg-950">
       <div className="noise-overlay" />
+     
+      <ClickSpark
+      sparkColor="#ffffff"
+      sparkSize={10}
+      sparkRadius={15}
+      sparkCount={8}
+      duration={400}
+      >
       <ScrollProgress />
       <CustomCursor />
       <Navbar />
@@ -25,6 +35,8 @@ export default function App() {
         <About />
       </main>
       <Contact />
+      </ClickSpark>
+      
     </div>
   );
 }

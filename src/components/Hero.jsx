@@ -5,6 +5,7 @@ import MagneticButton from "./MagneticButton";
 import ProfessionalIDCard from "./Professionalidcard";
 import Lanyard from "../assets/Lanyard/lanyard2.png";
 import TiltedCard from "./TiltedCard";
+import Particles from "./ui/particles";
 
 
 const springIn = (delay = 0) => ({
@@ -27,38 +28,39 @@ export default function Hero() {
   return (
     <section
       id="top"
-      className="relative mx-auto grid min-h-screen max-w-6xl grid-cols-1 items-center gap-4 px-6 pt-32 pb-16 sm:px-10 lg:grid-cols-2 lg:gap-8 lg:pt-24"
+      className="relative mx-auto grid min-h-screen max-w-6xl grid-cols-1 items-center gap-4 px-6 pt-32 pb-16 sm:px-10 lg:grid-cols-2 lg:gap-12 lg:pt-24"
     >
+     
       {/* Left: visual */}
       <motion.div
         initial={{ opacity: 0, scale: 0.94 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ type: "spring", stiffness: 90, damping: 16, delay: 0.1 }}
-        className="order-2 lg:order-1"
+        className="order-2 lg:order-1 flex justify-center lg:order-1 lg:justify-start mb-14 lg:mb-0"
       >
        <TiltedCard
-  imageSrc={Lanyard}
-  altText="Rendra Gadhing"
-  captionText="Rendra Gadhing"
-  containerHeight="426px"
-  containerWidth="260px"
-  imageHeight="426px" 
-  imageWidth="260px"
-  rotateAmplitude={12}
-  scaleOnHover={1.05}
-  showMobileWarning={false}
-  showTooltip
-  displayOverlayContent
-  overlayContent={
-    <p className="tilted-card-demo-text">
-      Rendra Gadhing
-    </p>
-  }
-/>
+          imageSrc={Lanyard}
+          altText="Rendra Gadhing"
+          captionText="Rendra Gadhing"
+          containerHeight="426px"
+          containerWidth="260px"
+          imageHeight="426px" 
+          imageWidth="260px"
+          rotateAmplitude={16}
+          scaleOnHover={1.05}
+          showMobileWarning={false}
+          showTooltip
+          displayOverlayContent
+          overlayContent={
+            <p className="tilted-card-demo-text text-blue-800 text-md">
+              Rendra Gadhing
+            </p>
+        } 
+      />
       </motion.div>
 
       {/* Right: typography */}
-      <div className="order-1 lg:order-2">
+      <div className="order-2 lg:order-2">
         <motion.p
           {...springIn(0.05)}
           className="font-mono text-[12px] uppercase tracking-[0.18em] text-fg-muted"
@@ -81,7 +83,7 @@ export default function Hero() {
           <Typewriter
             className="font-mono text-lg text-fg-soft sm:text-xl"
             words={[
-              "Full-Stack Builder",
+              "Backend & Frontend Developer",
               "Laravel & React Engineer",
               "API & Database Architect",
             ]}
