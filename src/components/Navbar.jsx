@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import rendra from '../assets/my-diri.png'
 
 const LINKS = [
-  { label: "home", href: "#top" },
+  { label: "Home", href: "#top" },
   { label: "Projects", href: "#work" },
   { label: "About", href: "#about" },
   { label: "Contact", href: "#contact" },
@@ -46,14 +46,14 @@ export default function Navbar() {
         open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
-      <div className="flex min-h-[100dvh] flex-col justify-center gap-2 px-8 py-28">
+      <div className="flex min-h-[100dvh] flex-col justify-start py-18 gap-1.5 px-8">
         {LINKS.map((link, i) => (
            <a
             key={link.href}
             href={link.href}
             onClick={(e) => go(e, link.href)}
             style={{ transitionDelay: open ? `${i * 60}ms` : "0ms" }}
-            className={`border-b border-line py-5 font-display text-3xl font-medium tracking-tight text-fg transition-all duration-300 ${
+            className={`border-b border-line py-5 font-display text-2xl font-medium tracking-tight text-fg transition-all duration-300 ${
               open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
             }`}
           >
@@ -80,7 +80,7 @@ export default function Navbar() {
         scrolled ? "border-b border-line bg-bg-950/80 backdrop-blur-md" : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5 sm:px-10">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-2 lg:py-5 sm:px-10">
        
        <div className="flex items-center gap-3">
         <div className="relative h-10 w-10 overflow-hidden rounded-full border border-line-strong">
@@ -95,7 +95,7 @@ export default function Navbar() {
           <span className="text-accent">.</span>
         </a>
         </div>
-        <ul className="hidden items-center gap-9 md:flex">
+        <ul className="hidden items-center gap-3 lg:gap-9 md:flex">
           {LINKS.map((link) => (
             <li key={link.href}>
                <a
