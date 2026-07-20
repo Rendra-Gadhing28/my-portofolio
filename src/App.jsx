@@ -8,7 +8,7 @@ import Contact from "./components/Contact";
 import CustomCursor from "./components/CustomCursor";
 import ScrollProgress from "./components/ScrollProgress";
 import ClickSpark from "./components/ui/ClickSpark";
-import Particles from "./components/ui/particles";
+
 
 export default function App() {
   useLenis();

@@ -5,7 +5,6 @@ import MagneticButton from "./MagneticButton";
 import ProfessionalIDCard from "./Professionalidcard";
 import Lanyard from "../assets/Lanyard/lanyard2.png";
 import TiltedCard from "./TiltedCard";
-import Particles from "./ui/particles";
 
 
 const springIn = (delay = 0) => ({
