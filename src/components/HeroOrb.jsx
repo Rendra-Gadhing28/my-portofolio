@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import Lanyard from "../components/lanyard/Lanyard";
+
 
 const DOTS = Array.from({ length: 48 }, (_, i) => ({
   x: (i % 8) * 44 + 14,

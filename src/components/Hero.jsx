@@ -2,10 +2,8 @@ import { motion } from "framer-motion";
 import HeroOrb from "./HeroOrb";
 import Typewriter from "./Typewriter";
 import MagneticButton from "./MagneticButton";
-import TestLanyard from "./testLanyard";
 import ProfessionalIDCard from "./Professionalidcard";
-import Lanyard from "./lanyard/Lanyard2.png";
-import IdCard from "./idCard";
+import Lanyard from "../assets/Lanyard/lanyard2.png";
 import TiltedCard from "./TiltedCard";
 
 
