@@ -5,6 +5,8 @@ import MagneticButton from "./MagneticButton";
 import TestLanyard from "./testLanyard";
 import ProfessionalIDCard from "./Professionalidcard";
 import Lanyard from "./lanyard/Lanyard2.png";
+import IdCard from "./idCard";
+import TiltedCard from "./TiltedCard";
 
 
 const springIn = (delay = 0) => ({
@@ -36,7 +38,25 @@ export default function Hero() {
         transition={{ type: "spring", stiffness: 90, damping: 16, delay: 0.1 }}
         className="order-2 lg:order-1"
       >
-        
+       <TiltedCard
+  imageSrc={Lanyard}
+  altText="Rendra Gadhing"
+  captionText="Rendra Gadhing"
+  containerHeight="426px"
+  containerWidth="260px"
+  imageHeight="426px" 
+  imageWidth="260px"
+  rotateAmplitude={12}
+  scaleOnHover={1.05}
+  showMobileWarning={false}
+  showTooltip
+  displayOverlayContent
+  overlayContent={
+    <p className="tilted-card-demo-text">
+      Rendra Gadhing
+    </p>
+  }
+/>
       </motion.div>
 
       {/* Right: typography */}
