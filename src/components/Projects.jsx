@@ -4,9 +4,16 @@ const PROJECTS = [
   {
     name: "Sijar",
     desc: "Inovasi Sistem Peminjaman Barang Berbasis Web untuk Meningkatkan Efisiensi dan Akurasi dalam Pengelolaan Inventaris.",
-    tags: ["Laravel", "MySQL", "React"],
+    tags: ["Laravel", "MySQL", "React"," Tailwind CSS"],
     year: "2026",
     url: "https://sijarr.vercel.app/"
+  },
+    {
+    name: "Al-Muqoddas",
+    desc: "Landing Page untuk Al-Muqoddas, sebuah platform yang menyediakan informasi tentang ekstrakurikuler dan kegiatan Al-Muqoddas.",
+    tags: ["React", "JavaScript", "Tailwind CSS", "Spreadsheet", "AppScript"],
+    year: "2026",
+    url: "https://al-muqoddas.vercel.app/"
   },
     {
     name: "Yalia Beauty Salon",
