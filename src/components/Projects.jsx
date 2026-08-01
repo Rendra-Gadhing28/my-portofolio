@@ -2,6 +2,13 @@ import { motion } from "framer-motion";
 
 const PROJECTS = [
   {
+    name: "Booking Yalia Beauty Salon (Comming Soon)",
+    desc: "Sebuah Aplikasi Booking untuk Yalia Beauty Salon yang memungkinkan pelanggan untuk memesan layanan secara online dan mengelola jadwal mereka.",
+    tags: ["Laravel", "MySQL"," Tailwind CSS", "Oauth", "Midtrans (Sandbox)"],
+    year: "2026",
+    url: "https://github.com/rendra-gadhing28/PRA-UKK"
+  },
+  {
     name: "Sijar",
     desc: "Inovasi Sistem Peminjaman Barang Berbasis Web untuk Meningkatkan Efisiensi dan Akurasi dalam Pengelolaan Inventaris.",
     tags: ["Laravel", "MySQL", "React"," Tailwind CSS"],
