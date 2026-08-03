@@ -3,7 +3,7 @@ import MagneticButton from "./MagneticButton";
 
 const SOCIALS = [
   { label: "GitHub", href: "https://github.com/rendra-gadhing28" },
-  { label: "Instagram", href: "https://instagram.com/rendra_gadhing28" },
+  { label: "Instagram", href: "https://www.instagram.com/hey_you_whats_up_bung?igsh=MTV6am14enZmeHJwZA==" },
   { label: "Whatsapp", href: "https://wa.me/62895366900501" },
 ];
 
