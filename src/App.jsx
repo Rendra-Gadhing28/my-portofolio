@@ -8,6 +8,7 @@ import Contact from "./components/Contact";
 import CustomCursor from "./components/CustomCursor";
 import ScrollProgress from "./components/ScrollProgress";
 import ClickSpark from "./components/ui/ClickSpark";
+import Certificate from "./components/Certificate";
 
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
         <Projects />
         
         <About />
+        <Certificate />
       </main>
       <Contact />
       </ClickSpark>

@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const PROJECTS = [
   {
-    name: "Booking Yalia Beauty Salon (Comming Soon)",
+    name: "Booking Yalia Beauty Salon (Coming Soon)",
     desc: "Sebuah Aplikasi Booking untuk Yalia Beauty Salon yang memungkinkan pelanggan untuk memesan layanan secara online dan mengelola jadwal mereka.",
     tags: ["Laravel", "MySQL"," Tailwind CSS", "Oauth", "Midtrans (Sandbox)"],
     year: "2026",
