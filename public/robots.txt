@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://rendradev.vercel.app/sitemap.xml
