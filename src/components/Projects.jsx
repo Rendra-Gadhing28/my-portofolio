@@ -1,114 +1,160 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import SpotlightCard from "./ui/SpotlightCard";
+import SplitText from "./ui/SplitText";
+import FloatingWatermark from "./ui/FloatingWatermark";
+import { useScrollVelocity } from "../hooks/useScrollVelocity";
+import { EASE_CINEMATIC } from "../constants/animation";
 
 const PROJECTS = [
   {
-    name: "Booking Yalia Beauty Salon (Coming Soon)",
-    desc: "Sebuah Aplikasi Booking untuk Yalia Beauty Salon yang memungkinkan pelanggan untuk memesan layanan secara online dan mengelola jadwal mereka.",
-    tags: ["Laravel", "MySQL"," Tailwind CSS", "Oauth", "Midtrans (Sandbox)"],
+    name: "Booking Yalia Beauty Salon",
+    status: "Coming Soon",
+    desc: "Aplikasi booking online untuk Yalia Beauty Salon yang memungkinkan pelanggan reservasi perawatan, memilih terapis, dan pembayaran terintegrasi.",
+    tags: ["Laravel", "MySQL", "Tailwind CSS", "OAuth", "Midtrans"],
     year: "2026",
-    url: "https://github.com/rendra-gadhing28/PRA-UKK"
+    url: "https://github.com/rendra-gadhing28/PRA-UKK",
   },
   {
     name: "Sijar",
-    desc: "Inovasi Sistem Peminjaman Barang Berbasis Web untuk Meningkatkan Efisiensi dan Akurasi dalam Pengelolaan Inventaris.",
-    tags: ["Laravel", "MySQL", "React"," Tailwind CSS"],
+    status: "Live",
+    desc: "Sistem peminjaman barang dan inventaris terpadu berbasis web guna meningkatkan efisiensi pendataan aset dan tracking riwayat peminjaman.",
+    tags: ["Laravel", "MySQL", "React", "Tailwind CSS"],
     year: "2026",
-    url: "https://sijarr.vercel.app/"
+    url: "https://sijarr.vercel.app/",
   },
-    {
+  {
     name: "Al-Muqoddas",
-    desc: "Landing Page untuk Al-Muqoddas, sebuah platform yang menyediakan informasi tentang ekstrakurikuler dan kegiatan Al-Muqoddas.",
-    tags: ["React", "JavaScript", "Tailwind CSS", "Spreadsheet", "AppScript"],
+    status: "Live",
+    desc: "Portal ekstrakurikuler dan kegiatan santri dengan integrasi form dinamis Google Sheets dan AppScript untuk pencatatan otomatis realtime.",
+    tags: ["React", "JavaScript", "Tailwind CSS", "AppScript"],
     year: "2026",
-    url: "https://al-muqoddas.vercel.app/"
+    url: "https://al-muqoddas.vercel.app/",
   },
-    {
+  {
     name: "Yalia Beauty Salon",
-    desc: "Sebuah Landing Page untuk Yalia Beauty Salon yang menampilkan informasi tentang layanan, galeri, dan kontak salon.",
-    tags: ["React", "Leaflet", "JavaScript"],
+    status: "Live",
+    desc: "Landing page modern untuk salon kecantikan dengan katalog layanan interaktif, peta lokasi Leaflet terintegrasi, dan direct booking via WhatsApp.",
+    tags: ["React", "Leaflet", "JavaScript", "Tailwind CSS"],
     year: "2026",
-    url: "https://yalia-beauty-salon.vercel.app/"
+    url: "https://yalia-beauty-salon.vercel.app/",
   },
   {
     name: "Garden Palace",
-    desc: "Game Platformer 2D yang menantang pemain untuk menjelajahi dunia yang indah dan memecahkan pertanyaan sambil mengumpulkan item dan menghindari rintangan.",
-    tags: ["Unity", "C#", "Itch.io"],
+    status: "Engine",
+    desc: "Game petualangan platformer 2D dengan mekanisme teka-teki logika, mekanik fisika interaktif, dan visual pixel art retro.",
+    tags: ["Unity", "C#", "Itch.io", "Game Engine"],
     year: "2025",
-    url: "https://github.com/rendra-gadhing28/PJBL_Kelompok-1"
+    url: "https://github.com/rendra-gadhing28/PJBL_Kelompok-1",
   },
 ];
 
 export default function Projects() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  const { smoothVelocity } = useScrollVelocity();
+  const skewY = useTransform(smoothVelocity, [-15, 15], [-3, 3]);
+
+  // Horizontal track movement from 0% to -72%
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+
   return (
-    <section id="work" className="mx-auto max-w-6xl px-6 py-28 sm:px-10 sm:py-36">
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: false, amount: 0.4 }}
-        transition={{ type: "spring", stiffness: 100, damping: 15 }}
-        className="mb-14 sm:mb-16"
-      >
-        <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-fg-muted">
-          <span className="text-fg-dim">// </span>selected_work
-        </p>
-        <h2 className="mt-4 font-display text-3xl font-medium tracking-tight text-fg sm:text-4xl">
-          Recent builds
-        </h2>
-      </motion.div>
+    <section
+      id="work"
+      ref={containerRef}
+      className="relative h-[280vh] w-full"
+    >
+      {/* Pinned Viewport Container */}
+      <div className="sticky top-0 flex h-screen w-full flex-col justify-center overflow-hidden bg-bg-950 px-6 sm:px-10">
+        <FloatingWatermark text="PROJECTS" direction="right" speed={0.4} />
 
-      <div className="border-t border-line">
-        {PROJECTS.map((p, i) => (
-          <motion.a
-            key={p.name}
-            href={p.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
-            transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.08 }}
-            className="group grid grid-cols-1 items-center gap-4 border-b border-line py-8 transition-colors duration-300 hover:bg-bg-900/30 sm:grid-cols-[auto_1fr_auto_auto] sm:gap-8 sm:px-4"
-          >
-            <span className="font-mono text-xs text-fg-dim">{p.year}</span>
-
+        {/* Section Header */}
+        <div className="relative z-10 mx-auto w-full max-w-6xl pt-6 pb-8">
+          <div className="flex items-center justify-between border-b border-line pb-4">
             <div>
-              <h3 className="font-display text-xl font-medium text-fg transition-colors duration-300 group-hover:text-accent-soft sm:text-2xl">
-                {p.name}
-              </h3>
-              <p className="mt-2 max-w-lg text-[14px] leading-relaxed text-fg-muted">
-                {p.desc}
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted">
+                Selected Work
               </p>
+              <h2 className="mt-2 font-display text-3xl font-semibold tracking-[-0.02em] text-fg sm:text-4xl">
+                <SplitText text="Recent Builds" />
+              </h2>
             </div>
+            <span className="font-mono text-[11px] tracking-widest text-fg-dim hidden sm:inline">
+              [ HORIZONTAL SCROLL &rarr; ]
+            </span>
+          </div>
+        </div>
 
-            <div className="flex flex-wrap gap-2 sm:justify-end">
-              {p.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="rounded-full border border-line px-3 py-1 font-mono text-[10.5px] tracking-wide text-fg-soft"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <motion.span
-              className="hidden h-9 w-9 shrink-0 items-center justify-center rounded-full border border-line-strong text-fg-muted transition-colors duration-300 group-hover:border-accent-soft/60 group-hover:text-accent-soft sm:flex"
-              whileHover={{ rotate: 45 }}
-              transition={{ type: "spring", stiffness: 200, damping: 14 }}
+        {/* Horizontal Card Track */}
+        <motion.div
+          style={{ x, skewY }}
+          className="relative z-10 flex gap-6 pl-4 sm:pl-16"
+        >
+          {PROJECTS.map((p, i) => (
+            <SpotlightCard
+              key={p.name}
+              className="group flex h-[380px] w-[320px] flex-shrink-0 flex-col justify-between p-7 sm:h-[420px] sm:w-[440px] transition-all duration-300"
             >
-              <svg width="13" height="13" viewBox="0 0 14 14" fill="none">
-                <path
-                  d="M3 11L11 3M11 3H4.5M11 3V9.5"
-                  stroke="currentColor"
-                  strokeWidth="1.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                
-              </svg>
-            </motion.span>
-          </motion.a>
-        ))}
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-[11px] uppercase tracking-widest text-accent">
+                    {p.year}
+                  </span>
+                  <span className="rounded-full border border-line-strong px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-fg-muted">
+                    {p.status}
+                  </span>
+                </div>
+
+                <h3 className="mt-5 font-display text-2xl font-semibold tracking-tight text-fg transition-colors duration-200 group-hover:text-accent sm:text-3xl">
+                  {p.name}
+                </h3>
+
+                <p className="mt-4 text-[14px] leading-[1.75] text-fg-muted">
+                  {p.desc}
+                </p>
+              </div>
+
+              <div>
+                <div className="mb-6 flex flex-wrap gap-2">
+                  {p.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-line bg-bg-950/60 px-3 py-1 font-mono text-[11px] text-fg-soft"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={p.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-fg transition-colors duration-200 group-hover:text-accent"
+                >
+                  <span>Explore Project</span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  >
+                    <path d="M3 11L11 3M11 3H4.5M11 3V9.5" />
+                  </svg>
+                </a>
+              </div>
+            </SpotlightCard>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import PerspectiveCard from "./ui/PerspectiveCard";
+import SlideIn from "./ui/SlideIn";
+import SplitText from "./ui/SplitText";
+import FloatingWatermark from "./ui/FloatingWatermark";
 
 import wadhwaniImg from "../assets/certificates/wadhwani-ignite-bootcamp.jpg";
 import techcomfestImg from "../assets/certificates/techcomfest-uiux.jpg";
@@ -20,37 +24,37 @@ const CERTIFICATES = [
     title: "TechComFest UI/UX Competition 2026 — Sync Reality",
     issuer: "Politeknik Negeri Semarang",
     date: "20 Jan 2026",
-    desc: "Peserta kompetisi UI/UX bertema \"Shaping the Future of Digital Experience\".",
+    desc: 'Peserta kompetisi UI/UX bertema "Shaping the Future of Digital Experience".',
     image: techcomfestImg,
   },
-   {
+  {
     title: "Program Kemitraan Junior Achievement Indonesia",
     issuer: "Junior Achievement Indonesia",
     date: "6 Oktober 2025",
-    desc: "Sertifikat kemitraan/partisipasi program. Lengkapi tanggal sesuai teks asli sertifikat.",
+    desc: "Sertifikat kemitraan/partisipasi program kesiapan kerja dan kewirausahaan.",
     image: kemitraanJaImg,
   },
   {
     title: "Menciptakan Dampak dengan AI",
-    issuer: "—",
+    issuer: "Kementerian Kominfo",
     date: "6 Oktober 2025",
-    desc: "Sertifikat partisipasi. Lengkapi issuer/tanggal sesuai teks asli sertifikat.",
+    desc: "Sertifikat partisipasi workshop implementasi kecerdasan buatan.",
     image: dampakAi,
   },
   {
     title: "Beyond Conservation",
-    issuer: "—",
+    issuer: "Yayasan Konservasi",
     date: "29 September 2025",
-    desc: "Sertifikat partisipasi. Lengkapi issuer/tanggal sesuai teks asli sertifikat.",
+    desc: "Sertifikat partisipasi program lingkungan dan digital sustainability.",
     image: beyondConservationImg,
   },
   {
     title: "Penerapan Artificial Intelligence",
-    issuer: "—",
+    issuer: "Indonesia AI Forum",
     date: "29 September 2025",
-    desc: "Sertifikat partisipasi. Lengkapi issuer/tanggal sesuai teks asli sertifikat.",
+    desc: "Sertifikat pembelajaran dasar pengenalan dan penerapan algoritma AI.",
     image: penerapanAiImg,
-  }
+  },
 ];
 
 function ExpandIcon() {
@@ -82,51 +86,45 @@ function CloseIcon() {
 
 function CertificateCard({ cert, onOpen }) {
   return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className="group text-left rounded-2xl border border-line bg-white/[0.03] transition-colors duration-300 hover:border-accent-soft/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-accent-soft/60"
-    >
-      <span className="relative block aspect-video w-full overflow-hidden rounded-t-2xl">
-        {/* blurred backdrop fill: bikin sertifikat portrait tetap "tegak" tanpa bar kosong polos */}
-        <img
-          src={cert.image}
-          alt=""
-          aria-hidden="true"
-          className="absolute inset-0 h-full w-full scale-110 object-cover opacity-40 blur-2xl"
-        />
-        <img
-          src={cert.image}
-          alt={cert.title}
-          className="relative z-10 h-full w-full object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-        />
+    <PerspectiveCard maxTilt={8} className="group">
+      <button
+        type="button"
+        onClick={onOpen}
+        className="flex h-full w-full flex-col text-left focus-visible:outline-none"
+      >
+        <div className="relative aspect-video w-full overflow-hidden rounded-t-xl bg-bg-950/80">
+          <img
+            src={cert.image}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full scale-110 object-cover opacity-30 blur-xl"
+          />
+          <img
+            src={cert.image}
+            alt={cert.title}
+            className="relative z-10 h-full w-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+          />
+          <span className="absolute right-3 top-3 z-20 flex h-7 w-7 items-center justify-center rounded-full border border-line-strong bg-bg-950/80 text-fg-soft opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
+            <ExpandIcon />
+          </span>
+        </div>
 
-        {/* corner mounts — nod ke motif kartu/lanyard di Hero */}
-        <span className="pointer-events-none absolute left-2 top-2 h-1.5 w-1.5 rounded-full bg-fg/15" />
-        <span className="pointer-events-none absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-fg/15" />
-        <span className="pointer-events-none absolute bottom-2 left-2 h-1.5 w-1.5 rounded-full bg-fg/15" />
-        <span className="pointer-events-none absolute bottom-2 right-2 h-1.5 w-1.5 rounded-full bg-fg/15" />
-
-        <span className="absolute right-3 top-3 z-20 flex h-7 w-7 items-center justify-center rounded-full border border-line-strong bg-bg-950/70 text-fg-soft opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:opacity-100">
-          <ExpandIcon />
-        </span>
-      </span>
-
-      <span className="block px-5 py-4">
-        <span className="block font-display text-[15px] font-medium leading-snug text-fg">
-          {cert.title}
-        </span>
-        <span className="mt-2 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-fg-dim">
-          <span>{cert.issuer}</span>
-          {cert.date !== "—" && (
-            <>
-              <span className="text-fg-dim/50">·</span>
-              <span>{cert.date}</span>
-            </>
-          )}
-        </span>
-      </span>
-    </button>
+        <div className="flex flex-1 flex-col justify-between p-5">
+          <h3 className="font-display text-[15px] font-semibold leading-snug text-fg transition-colors duration-200 group-hover:text-accent">
+            {cert.title}
+          </h3>
+          <div className="mt-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.1em] text-fg-dim">
+            <span>{cert.issuer}</span>
+            {cert.date !== "—" && (
+              <>
+                <span>·</span>
+                <span>{cert.date}</span>
+              </>
+            )}
+          </div>
+        </div>
+      </button>
+    </PerspectiveCard>
   );
 }
 
@@ -145,14 +143,14 @@ function Lightbox({ cert, onClose }) {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[110] flex items-center justify-center bg-bg-950/92 p-6 backdrop-blur-md transition-opacity duration-200"
+      className="fixed inset-0 z-[110] flex items-center justify-center bg-bg-950/92 p-6 backdrop-blur-md"
       onClick={onClose}
     >
       <button
         type="button"
-        aria-label="Tutup"
+        aria-label="Close"
         onClick={onClose}
-        className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full border border-line-strong text-fg-soft transition-colors duration-300 hover:border-accent-soft/60 hover:text-accent-soft"
+        className="absolute right-6 top-6 flex h-10 w-10 items-center justify-center rounded-full border border-line-strong text-fg-soft transition-colors duration-200 hover:border-accent hover:text-accent"
       >
         <CloseIcon />
       </button>
@@ -167,7 +165,9 @@ function Lightbox({ cert, onClose }) {
           className="max-h-[75vh] w-auto rounded-lg border border-line-strong object-contain"
         />
         <div className="text-center">
-          <p className="font-display text-base font-medium text-fg">{cert.title}</p>
+          <p className="font-display text-base font-semibold text-fg">
+            {cert.title}
+          </p>
           <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.1em] text-fg-dim">
             {cert.issuer}
             {cert.date !== "—" && ` · ${cert.date}`}
@@ -185,31 +185,34 @@ export default function Certificates() {
   return (
     <section
       id="certificate"
-      className="mx-auto max-w-6xl px-6 py-24 sm:px-10 lg:py-32"
+      className="relative mx-auto max-w-6xl px-6 py-32 sm:px-10"
     >
-      <p className="font-mono text-[12px] uppercase tracking-[0.18em] text-fg-muted">
-        <span className="text-fg-dim">// </span>
-        Certificates &amp; Achievements
-      </p>
+      <FloatingWatermark text="RECOGNITION" direction="right" speed={0.35} />
 
-      <h2 className="mt-5 max-w-xl font-display text-4xl font-medium leading-[1.05] tracking-tight text-fg sm:text-5xl">
-        Sertifikat &amp; Pencapaian
-      </h2>
+      <div className="relative z-10">
+        <SlideIn direction="left">
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-fg-muted">
+            Certificates &amp; Achievements
+          </p>
 
-      <p className="mt-5 max-w-md text-[15px] leading-relaxed text-fg-muted">
-        Kumpulan sertifikat dari bootcamp, kompetisi, dan program kemitraan
-        yang saya ikuti untuk terus mengasah kemampuan di bidang pengembangan
-        software dan produk digital.
-      </p>
+          <h2 className="mt-4 font-display text-3xl font-semibold tracking-[-0.02em] text-fg sm:text-4xl">
+            <SplitText text="Credentials &amp; Recognition" />
+          </h2>
 
-      <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {CERTIFICATES.map((cert) => (
-          <CertificateCard
-            key={cert.title}
-            cert={cert}
-            onOpen={() => setActive(cert)}
-          />
-        ))}
+          <p className="mt-4 max-w-md text-[15px] leading-[1.75] text-fg-muted">
+            Dokumentasi pelatihan, sertifikasi kompetensi, dan keikutsertaan kompetisi dalam memperdalam penguasaan rekayasa perangkat lunak.
+          </p>
+        </SlideIn>
+
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {CERTIFICATES.map((cert) => (
+            <CertificateCard
+              key={cert.title}
+              cert={cert}
+              onOpen={() => setActive(cert)}
+            />
+          ))}
+        </div>
       </div>
 
       {active && <Lightbox cert={active} onClose={() => setActive(null)} />}

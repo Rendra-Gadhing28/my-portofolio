@@ -3,10 +3,16 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 
 export default function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const sx = useSpring(x, { stiffness: 400, damping: 34, mass: 0.4 });
-  const sy = useSpring(y, { stiffness: 400, damping: 34, mass: 0.4 });
+
+  // Fast inner point
+  const rawX = useMotionValue(-100);
+  const rawY = useMotionValue(-100);
+  const dotX = useSpring(rawX, { stiffness: 800, damping: 50 });
+  const dotY = useSpring(rawY, { stiffness: 800, damping: 50 });
+
+  // Trailing glow ring
+  const trailX = useSpring(rawX, { stiffness: 180, damping: 24, mass: 0.8 });
+  const trailY = useSpring(rawY, { stiffness: 180, damping: 24, mass: 0.8 });
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)").matches;
@@ -15,19 +21,28 @@ export default function CustomCursor() {
     setEnabled(true);
 
     function move(e) {
-      x.set(e.clientX);
-      y.set(e.clientY);
+      rawX.set(e.clientX);
+      rawY.set(e.clientY);
     }
-    window.addEventListener("mousemove", move);
+
+    window.addEventListener("mousemove", move, { passive: true });
     return () => window.removeEventListener("mousemove", move);
-  }, [x, y]);
+  }, [rawX, rawY]);
 
   if (!enabled) return null;
 
   return (
-    <motion.div
-      style={{ x: sx, y: sy }}
-      className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent-soft/50 mix-blend-difference lg:block"
-    />
+    <>
+      {/* Trailing soft glow ring */}
+      <motion.div
+        style={{ x: trailX, y: trailY }}
+        className="pointer-events-none fixed left-0 top-0 z-[69] hidden h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-[1px] lg:block"
+      />
+      {/* Sharp core dot */}
+      <motion.div
+        style={{ x: dotX, y: dotY }}
+        className="pointer-events-none fixed left-0 top-0 z-[70] hidden h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent lg:block"
+      />
+    </>
   );
 }

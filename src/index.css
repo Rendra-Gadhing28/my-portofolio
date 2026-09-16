@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Space Grotesk", "Inter", ui-sans-serif, sans-serif;
+  --font-display: "Sora", "Inter", ui-sans-serif, sans-serif;
   --font-sans: "Inter", ui-sans-serif, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
@@ -10,8 +10,8 @@
   --color-bg-800: #18181c;
   --color-bg-700: #212127;
 
-  --color-line: #27272d;
-  --color-line-strong: #38383f;
+  --color-line: #222227;
+  --color-line-strong: #33333b;
 
   --color-fg: #edebe6;
   --color-fg-soft: #c8c6c0;
