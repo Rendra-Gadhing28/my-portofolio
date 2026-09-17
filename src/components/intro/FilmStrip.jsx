@@ -1,6 +1,7 @@
 import { motion, useTransform } from "framer-motion";
 
 const FRAMES = [
+  { title: "KASIR GO (POS)", tag: "React POS App", year: "2026" },
   { title: "SIJAR INVENTORY", tag: "Laravel + React", year: "2026" },
   { title: "AL-MUQODDAS", tag: "React Platform", year: "2026" },
   { title: "YALIA SALON", tag: "Interactive Web", year: "2026" },

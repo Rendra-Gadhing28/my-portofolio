@@ -5,7 +5,7 @@ import SplitText from "./ui/SplitText";
 import FloatingWatermark from "./ui/FloatingWatermark";
 
 const STATS = [
-  { label: "Completed Builds", value: 5, suffix: "+" },
+  { label: "Completed Builds", value: 6, suffix: "+" },
   { label: "Credentials & Awards", value: 6, suffix: "" },
   { label: "Year Engineering Focus", value: 1, suffix: " yr" },
 ];

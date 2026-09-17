@@ -8,6 +8,14 @@ import { EASE_CINEMATIC } from "../constants/animation";
 
 const PROJECTS = [
   {
+    name: "Kasir Go",
+    status: "Live",
+    desc: "Aplikasi Point of Sale (POS) kasir modern berbasis web untuk efisiensi pencatatan katalog produk, transaksi kasir, dan kalkulasi pembayaran realtime.",
+    tags: ["React", "JavaScript", "Tailwind CSS", "POS System"],
+    year: "2026",
+    url: "https://kasir-go-delta.vercel.app/",
+  },
+  {
     name: "Booking Yalia Beauty Salon",
     status: "Coming Soon",
     desc: "Aplikasi booking online untuk Yalia Beauty Salon yang memungkinkan pelanggan reservasi perawatan, memilih terapis, dan pembayaran terintegrasi.",
@@ -59,14 +67,14 @@ export default function Projects() {
   const { smoothVelocity } = useScrollVelocity();
   const skewY = useTransform(smoothVelocity, [-15, 15], [-3, 3]);
 
-  // Horizontal track movement from 0% to -72%
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-70%"]);
+  // Horizontal track movement for 6 project cards
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-76%"]);
 
   return (
     <section
       id="work"
       ref={containerRef}
-      className="relative h-[280vh] w-full"
+      className="relative h-[320vh] w-full"
     >
       {/* Pinned Viewport Container */}
       <div className="sticky top-0 flex h-screen w-full flex-col justify-center overflow-hidden bg-bg-950 px-6 sm:px-10">
