@@ -43,7 +43,7 @@ export default function PerspectiveCard({
         rotateY,
         transformStyle: "preserve-3d",
       }}
-      className={`relative rounded-xl border border-line bg-bg-900/40 transition-colors duration-300 hover:border-line-strong ${className}`}
+      className={`relative rounded-xl border border-line bg-bg-900/40 transition-colors duration-300 hover:border-line-strong will-change-transform ${className}`}
       {...props}
     >
       <motion.div

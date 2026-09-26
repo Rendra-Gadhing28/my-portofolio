@@ -79,6 +79,23 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
     const track = trackRef.current;
     if (!track) return;
 
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (!isVisible && rafRef.current !== null) {
+          cancelAnimationFrame(rafRef.current);
+          rafRef.current = null;
+          lastTimestampRef.current = null;
+        } else if (isVisible && rafRef.current === null) {
+          lastTimestampRef.current = null;
+          rafRef.current = requestAnimationFrame(animate);
+        }
+      },
+      { rootMargin: '100px 0px' }
+    );
+    observer.observe(track);
+
     const prefersReduced =
       typeof window !== 'undefined' &&
       window.matchMedia &&
@@ -97,11 +114,13 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
     if (prefersReduced) {
       track.style.transform = isVertical ? 'translate3d(0, 0, 0)' : 'translate3d(0, 0, 0)';
       return () => {
+        observer.disconnect();
         lastTimestampRef.current = null;
       };
     }
 
     const animate = timestamp => {
+      if (!isVisible) return;
       if (lastTimestampRef.current === null) {
         lastTimestampRef.current = timestamp;
       }
@@ -131,6 +150,7 @@ const useAnimationLoop = (trackRef, targetVelocity, seqWidth, seqHeight, isHover
     rafRef.current = requestAnimationFrame(animate);
 
     return () => {
+      observer.disconnect();
       if (rafRef.current !== null) {
         cancelAnimationFrame(rafRef.current);
         rafRef.current = null;

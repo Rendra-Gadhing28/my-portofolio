@@ -6,12 +6,17 @@ export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    let lastState = false;
     const handleScroll = (e) => {
       const scrollY = e.detail?.scroll || window.scrollY || 0;
-      setVisible(scrollY > 400);
+      const shouldShow = scrollY > 400;
+      if (shouldShow !== lastState) {
+        lastState = shouldShow;
+        setVisible(shouldShow);
+      }
     };
 
-    window.addEventListener("lenis-scroll", handleScroll);
+    window.addEventListener("lenis-scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("lenis-scroll", handleScroll);
   }, []);
 
@@ -31,9 +36,9 @@ export default function ScrollToTop() {
           initial={{ opacity: 0, scale: 0.8, y: 15 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: 15 }}
-          transition={{ duration: 0.45, ease: EASE_CINEMATIC }}
+          transition={{ duration: 0.4, ease: EASE_CINEMATIC }}
           aria-label="Scroll to top"
-          className="fixed bottom-8 right-8 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-bg-900/80 text-fg-soft backdrop-blur-md transition-colors duration-200 hover:border-accent hover:text-accent focus:outline-none"
+          className="fixed bottom-8 right-8 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-bg-900/90 text-fg-soft transition-colors duration-200 hover:border-accent hover:text-accent focus:outline-none will-change-transform shadow-lg"
         >
           <svg
             width="14"

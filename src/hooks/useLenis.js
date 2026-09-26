@@ -20,17 +20,28 @@ export default function useLenis() {
     window.__lenis = lenis;
     window.__lenisVelocity = 0;
 
+    let dispatchRaf = null;
+    let latestDetail = null;
+
     lenis.on("scroll", (e) => {
-      window.__lenisVelocity = e.velocity || 0;
-      window.dispatchEvent(
-        new CustomEvent("lenis-scroll", {
-          detail: {
-            velocity: e.velocity || 0,
-            scroll: e.scroll || 0,
-            progress: e.progress || 0,
-          },
-        })
-      );
+      const v = e.velocity || 0;
+      window.__lenisVelocity = v;
+      latestDetail = {
+        velocity: v,
+        scroll: e.scroll || 0,
+        progress: e.progress || 0,
+      };
+
+      if (!dispatchRaf) {
+        dispatchRaf = requestAnimationFrame(() => {
+          if (latestDetail) {
+            window.dispatchEvent(
+              new CustomEvent("lenis-scroll", { detail: latestDetail })
+            );
+          }
+          dispatchRaf = null;
+        });
+      }
     });
 
     let animationFrameId;
@@ -41,6 +52,7 @@ export default function useLenis() {
     animationFrameId = requestAnimationFrame(raf);
 
     return () => {
+      if (dispatchRaf) cancelAnimationFrame(dispatchRaf);
       cancelAnimationFrame(animationFrameId);
       lenis.destroy();
       window.__lenis = undefined;
